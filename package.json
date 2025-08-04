@@ -4,10 +4,19 @@
   "description": "Apps Script project with GitHub sync",
   "main": "",
  "scripts": {
-  "push-sync": "clasp push && git pull origin main --rebase && git add . && git diff --cached --quiet || (git commit -m 'Push to Apps Script' && git push origin main)",
+  "push-sync": "clasp push && git add . && git diff --cached --quiet || (git commit -m 'Push to Apps Script' && git push origin main)",
   "pull-sync": "clasp pull && git add . && git diff --cached --quiet || (git commit -m 'Pull from Apps Script' && git push origin main)"
     }
 ,
-  "author": "",
-  "license": "ISC"
+   "keywords": [
+    "google-apps-script",
+    "clasp",
+    "contact-reminder",
+    "automation"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "@google/clasp": "^2.5.0"
+  }
 }
