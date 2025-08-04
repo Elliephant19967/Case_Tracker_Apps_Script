@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 10px;
+      }
+      h2 {
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+      label {
+        display: block;
+        margin-bottom: 6px;
+      }
+      button {
+        margin-top: 15px;
+        padding: 6px 12px;
+        background: #4285f4;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #3367d6;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Select Completed Months</h2>
+    
+    <form id="monthsForm">
+      <label><input type="checkbox" value="January"> January</label>
+      <label><input type="checkbox" value="February"> February</label>
+      <label><input type="checkbox" value="March"> March</label>
+      <label><input type="checkbox" value="April"> April</label>
+      <label><input type="checkbox" value="May"> May</label>
+      <label><input type="checkbox" value="June"> June</label>
+      <label><input type="checkbox" value="July"> July</label>
+      <label><input type="checkbox" value="August"> August</label>
+      <label><input type="checkbox" value="September"> September</label>
+      <label><input type="checkbox" value="October"> October</label>
+      <label><input type="checkbox" value="November"> November</label>
+      <label><input type="checkbox" value="December"> December</label>
+
+      <button type="button" id="submitBtn">SUBMIT</button>
+    </form>
+
+    <script>
+      // Pre-check completed months
+      google.script.run.withSuccessHandler(function(completedMonths) {
+        const selected = completedMonths ? completedMonths.split(",") : [];
+        document.querySelectorAll("input[type=checkbox]").forEach(cb => {
+          if (selected.includes(cb.value)) {
+            cb.checked = true;
+          }
+        });
+      }).getContactCompleteMonths();
+
+      // Handle submit button
+      document.getElementById("submitBtn").addEventListener("click", function() {
+        const selectedMonths = [];
+        document.querySelectorAll("input[type=checkbox]:checked").forEach(cb => {
+          selectedMonths.push(cb.value);
+        });
+        google.script.run.addCompletedMonths(selectedMonths);
+        google.script.host.close();
+      });
+    </script>
+  </body>
+</html>
